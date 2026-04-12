@@ -61,10 +61,10 @@ export default function Services() {
     transition={{ duration: 0.6, delay: i * 0.15 }}
     viewport={{ once: false }}
     onClick={() => toggleCard(i)}
-    className="relative w-full rounded-2xl text-left cursor-pointer [perspective:1000px]"
+className="relative w-full rounded-2xl overflow-hidden text-left cursor-pointer [perspective:1000px]"
   >
     {/* Glow Layer (NOW ATTACHED TO CARD) */}
-    <svg
+   <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-20"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
@@ -79,9 +79,7 @@ export default function Services() {
         pathLength="100"
         className="trace-path"
       />
-    </svg>
-
-    {/* Clipping Layer */}
+    </svg>    {/* Clipping Layer */}
     <div className="rounded-2xl overflow-hidden">
       {/* Flip Container */}
       <div

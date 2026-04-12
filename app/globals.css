@@ -70,7 +70,10 @@ html {
     drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))
     drop-shadow(0 0 10px rgba(125, 211, 252, 0.7))
     drop-shadow(0 0 18px rgba(56, 189, 248, 0.5));
-}@keyframes trace-run {
+}
+
+
+@keyframes trace-run {
   from { stroke-dashoffset: 100; }
   to   { stroke-dashoffset: 0;   }
 }
