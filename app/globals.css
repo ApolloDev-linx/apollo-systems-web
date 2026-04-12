@@ -42,3 +42,33 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.trace-path {
+  fill: none;
+
+  /*  laser core */
+  stroke: white;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+
+  stroke-dasharray: 32 68;
+  stroke-dashoffset: 0;
+
+  animation: trace-run 4s linear infinite;
+
+  /* */
+  filter:
+    drop-shadow(0 0 6px rgba(255, 255, 255, 1))   /* white core */
+    drop-shadow(0 0 12px rgba(125, 211, 252, 1)) /* inner blue */
+    drop-shadow(0 0 22px rgba(56, 189, 248, 1))  /* mid glow */
+    drop-shadow(0 0 40px rgba(14, 165, 233, 0.95)) /* outer bloom */
+    drop-shadow(0 0 65px rgba(14, 165, 233, 0.8)); /* ambient spill */
+}
+@keyframes trace-run {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
