@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -50,61 +49,64 @@ export default function Services() {
         viewport={{ once: false, margin: "-100px" }}
       >
         <h2 className="text-3xl font-semibold mb-12 text-center">Services</h2>
-
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, i) => {
             const isFlipped = flippedCards.includes(i);
-
             return (
-              <motion.button
-                key={service.title}
-                type="button"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                viewport={{ once: false }}
-                onClick={() => toggleCard(i)}
-                className="relative rounded-2xl p-[1px] overflow-hidden text-left cursor-pointer [perspective:1000px]"
-              >
-                <svg
-                  className="absolute inset-0 w-full h-full pointer-events-none"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                >
-                  <rect
-                    x="1.5"
-                    y="1.5"
-                    width="97"
-                    height="97"
-                    rx="10"
-                    ry="10"
-                    pathLength="100"
-                    className="trace-path"
-                  />
-                </svg>
+             <div key={service.title} className="relative">
+  <motion.button
+    type="button"
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: i * 0.15 }}
+    viewport={{ once: false }}
+    onClick={() => toggleCard(i)}
+    className="relative w-full rounded-2xl text-left cursor-pointer [perspective:1000px]"
+  >
+    {/* Glow Layer (NOW ATTACHED TO CARD) */}
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none z-20"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <rect
+        x="1.5"
+        y="1.5"
+        width="97"
+        height="97"
+        rx="10"
+        ry="10"
+        pathLength="100"
+        className="trace-path"
+      />
+    </svg>
 
-                <div
-                  className={`relative z-10 min-h-[220px] rounded-2xl transition-transform duration-700 [transform-style:preserve-3d] ${
-                    isFlipped ? "rotate-y-180" : ""
-                  }`}
-                >
-                  {/* Front */}
-                  <div className="absolute inset-0 rounded-2xl bg-[var(--bg)] px-8 py-8 border border-white/10 backdrop-blur [backface-visibility:hidden] flex flex-col justify-center items-center text-center">
-                    <h3 className="text-lg font-semibold">{service.title}</h3>
-                    <p className="text-sm text-[var(--muted)] mt-3">
-                      Tap to view
-                    </p>
-                  </div>
+    {/* Clipping Layer */}
+    <div className="rounded-2xl overflow-hidden">
+      {/* Flip Container */}
+      <div
+        className={`relative min-h-[220px] transition-transform duration-700 [transform-style:preserve-3d] ${
+          isFlipped ? "[transform:rotateY(180deg)]" : ""
+        }`}
+      >
+        {/* Front */}
+<div className="absolute inset-0 rounded-2xl bg-[var(--bg)] px-8 py-8 backdrop-blur [backface-visibility:hidden] flex flex-col justify-center items-center text-center bg-[var(--bg)] backdrop-blur-md">
+          <h3 className="text-lg font-semibold">{service.title}</h3>
+          <p className="text-sm text-[var(--muted)] mt-3">
+            Tap to view
+          </p>
+        </div>
 
-                  {/* Back */}
-                  <div className="absolute inset-0 rounded-2xl bg-[var(--bg)] px-8 py-8 border border-white/10 backdrop-blur [backface-visibility:hidden] [transform:rotateY(180deg)] flex items-center justify-center text-center">
-                    <p className="text-sm text-[var(--muted)] leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.button>
-            );
+        {/* Back */}
+<div className="absolute inset-0 rounded-2xl bg-[var(--bg)] px-8 py-8 backdrop-blur [backface-visibility:hidden] [transform:rotateY(180deg)] flex items-center justify-center text-center bg-[var(--bg)] backdrop-blur-md">
+          <p className="text-sm text-[var(--muted)] leading-relaxed">
+            {service.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  </motion.button>
+</div>            );
           })}
         </div>
       </motion.div>
