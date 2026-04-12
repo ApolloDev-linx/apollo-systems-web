@@ -43,6 +43,20 @@ html {
   scroll-behavior: smooth;
 }
 
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+
+
+
+
+
+
+
+
+
 .trace-path {
   fill: none;
 
