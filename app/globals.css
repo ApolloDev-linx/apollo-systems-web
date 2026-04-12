@@ -70,6 +70,8 @@ html {
 
   animation: trace-run 4s linear infinite;
 
+  will-change: filter;
+	
   /* */
   filter:
     drop-shadow(0 0 6px rgba(255, 255, 255, 1))   /* white core */
@@ -84,5 +86,18 @@ html {
   }
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .trace-path {
+    stroke-width: 2.8;
+
+    filter:
+      drop-shadow(0 0 10px rgba(255, 255, 255, 1))
+      drop-shadow(0 0 18px rgba(125, 211, 252, 1))
+      drop-shadow(0 0 30px rgba(56, 189, 248, 1))
+      drop-shadow(0 0 55px rgba(14, 165, 233, 1))
+      drop-shadow(0 0 90px rgba(14, 165, 233, 0.95));
   }
 }
