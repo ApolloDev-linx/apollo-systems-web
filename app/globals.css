@@ -91,13 +91,14 @@ html {
 
 @media (max-width: 768px) {
   .trace-path {
-    stroke-width: 2.8;
+    stroke: rgb(125, 211, 252); /* light blue instead of white */
+    stroke-width: 2.6;
 
     filter:
-      drop-shadow(0 0 10px rgba(255, 255, 255, 1))
-      drop-shadow(0 0 18px rgba(125, 211, 252, 1))
-      drop-shadow(0 0 30px rgba(56, 189, 248, 1))
-      drop-shadow(0 0 55px rgba(14, 165, 233, 1))
-      drop-shadow(0 0 90px rgba(14, 165, 233, 0.95));
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))   /* subtle white core */
+      drop-shadow(0 0 14px rgba(125, 211, 252, 1))   /* main glow */
+      drop-shadow(0 0 28px rgba(56, 189, 248, 1))    /* strong cyan */
+      drop-shadow(0 0 50px rgba(14, 165, 233, 1))    /* deep blue */
+      drop-shadow(0 0 80px rgba(14, 165, 233, 0.9)); /* ambient */
   }
 }
