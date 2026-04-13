@@ -1,29 +1,23 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 const links = [
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-
   useEffect(() => {
     // Scroll detection for glass effect
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     // IntersectionObserver for active section — fires when section enters viewport
     const sectionIds = ["services", "projects", "contact"];
     const visibleSections = new Set<string>();
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -33,7 +27,6 @@ export default function Navbar() {
             visibleSections.delete(entry.target.id);
           }
         });
-
         // Pick the last visible section in page order
         let current = "";
         for (const id of sectionIds) {
@@ -44,24 +37,23 @@ export default function Navbar() {
         setActiveSection(current);
       },
       {
-        // Trigger when even 5% of the section is visible
-        threshold: 0.05,
-        // Only shrink detection zone by 15% from bottom — generous enough for last sections
-        rootMargin: "0px 0px -15% 0px",
+        // Higher threshold — section needs ~20% visible before it counts
+        threshold: 0.2,
+        // Chop off the bottom 55% of the viewport as a detection zone.
+        // A section only counts as "entered" once it scrolls into the
+        // top 45% of the screen — feels natural and avoids premature jumps.
+        rootMargin: "0px 0px -55% 0px",
       }
     );
-
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
   }, []);
-
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
@@ -82,7 +74,6 @@ export default function Navbar() {
         <span className="relative z-10">Apollo Systems</span>
         <div className="absolute inset-0 bg-[var(--primary)] opacity-0 hover:opacity-20 blur-xl transition-opacity duration-300 rounded-full" />
       </motion.h1>
-
       {/* Nav links */}
       <div className="flex gap-8 text-sm">
         {links.map((link) => {
@@ -100,7 +91,6 @@ export default function Navbar() {
               >
                 {link.label}
               </span>
-
               {/* Active glow underline */}
               <AnimatePresence>
                 {isActive && (
@@ -118,7 +108,6 @@ export default function Navbar() {
                   />
                 )}
               </AnimatePresence>
-
               {/* Hover glow dot */}
               <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--primary)] rounded-full opacity-0 hover:opacity-60 transition-opacity duration-300 blur-[2px]" />
             </a>
