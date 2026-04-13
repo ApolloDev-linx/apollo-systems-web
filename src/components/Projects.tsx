@@ -40,7 +40,6 @@ export default function Projects() {
         whileInView="show"
         viewport={{ once: false, margin: "-100px" }}
       >
-        {/* Section Title */}
         <h2 className="text-3xl sm:text-4xl font-semibold mb-14 text-center leading-tight">
           Real results for{" "}
           <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-transparent bg-clip-text">
@@ -48,7 +47,6 @@ export default function Projects() {
           </span>
         </h2>
 
-        {/* Cards */}
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {projects.map((project, i) => (
             <motion.a
@@ -56,13 +54,12 @@ export default function Projects() {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative rounded-2xl trace-card-glow block"
+              className="group relative rounded-2xl overflow-hidden block"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               viewport={{ once: false }}
             >
-              {/* Glowing Trace Border */}
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none z-20"
                 viewBox="0 0 100 100"
@@ -80,9 +77,7 @@ export default function Projects() {
                 />
               </svg>
 
-              {/* Card Content */}
               <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur p-8 h-full flex flex-col">
-                {/* Header Row */}
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="text-xl font-semibold group-hover:text-[var(--primary)] transition">
                     {project.name}
@@ -105,12 +100,10 @@ export default function Projects() {
                   </svg>
                 </div>
 
-                {/* Description */}
                 <p className="text-sm text-[var(--muted)] leading-relaxed mb-6">
                   {project.description}
                 </p>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.tags.map((tag) => (
                     <span

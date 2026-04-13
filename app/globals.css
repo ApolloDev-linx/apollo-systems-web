@@ -102,83 +102,14 @@ html {
 
 
 /* ─── Trace Path — Mobile Fix ───
-   Strip heavy SVG filters on mobile. The CSS glow fallback handles the effect. */
+   Mobile GPUs choke on stacked SVG drop-shadows.
+   Single lightweight filter + slightly brighter stroke to compensate. */
 @media (max-width: 768px) {
   .trace-path {
-    stroke-width: 1.4;
-    stroke: rgba(255, 255, 255, 0.7);
-    filter: drop-shadow(0 0 3px rgba(125, 211, 252, 0.5));
+    stroke-width: 1.6;
+    stroke: rgba(125, 211, 252, 0.9);
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.6));
   }
-}
-
-
-/* ─── Mobile Card Glow Fallback ───
-   Uses a rotating gradient behind the card instead of @property (universal support).
-   The ::before is a large spinning gradient square, masked to only show the border edge. */
-.trace-card-glow {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1rem;
-}
-
-/* Spinning gradient layer */
-.trace-card-glow::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200%;
-  height: 200%;
-  transform: translate(-50%, -50%) rotate(0deg);
-  background: conic-gradient(
-    transparent 0deg,
-    transparent 200deg,
-    rgba(14, 165, 233, 0.5) 240deg,
-    rgba(56, 189, 248, 0.9) 270deg,
-    rgba(125, 211, 252, 1) 280deg,
-    rgba(56, 189, 248, 0.9) 290deg,
-    rgba(14, 165, 233, 0.5) 320deg,
-    transparent 340deg,
-    transparent 360deg
-  );
-  animation: glow-spin 4s linear infinite;
-  pointer-events: none;
-  z-index: 10;
-  opacity: 0;
-}
-
-/* Inner mask so only the border edge glows, not the card fill */
-.trace-card-glow::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border-radius: calc(1rem - 2px);
-  background: var(--bg);
-  pointer-events: none;
-  z-index: 11;
-  opacity: 0;
-}
-
-/* Card content needs to sit above the mask */
-.trace-card-glow > * {
-  position: relative;
-  z-index: 12;
-}
-
-/* Only activate on mobile */
-@media (max-width: 768px) {
-  .trace-card-glow::before {
-    opacity: 1;
-  }
-
-  .trace-card-glow::after {
-    opacity: 1;
-  }
-}
-
-@keyframes glow-spin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 
@@ -193,19 +124,6 @@ html {
   background-repeat: repeat;
   background-size: 128px 128px;
   z-index: 0;
-}
-
-
-/* ─── Fade-in on scroll utility ─── */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 

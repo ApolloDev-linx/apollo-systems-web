@@ -30,7 +30,6 @@ export default function About() {
         whileInView="show"
         viewport={{ once: false, margin: "-100px" }}
       >
-        {/* Section Label */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +40,6 @@ export default function About() {
           Why Apollo
         </motion.p>
 
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +53,6 @@ export default function About() {
           </span>
         </motion.h2>
 
-        {/* Paragraph */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -68,7 +65,6 @@ export default function About() {
           a contact form.
         </motion.p>
 
-        {/* Bullet Points */}
         <div className="space-y-5 mb-12">
           {bullets.map((bullet, i) => (
             <motion.div
@@ -101,15 +97,13 @@ export default function About() {
           ))}
         </div>
 
-        {/* Stats Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
           viewport={{ once: false }}
-          className="relative rounded-2xl trace-card-glow"
+          className="relative rounded-2xl overflow-hidden"
         >
-          {/* Trace Border */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none z-20"
             viewBox="0 0 100 100"

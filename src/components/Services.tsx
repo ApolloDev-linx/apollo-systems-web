@@ -100,12 +100,10 @@ export default function Services() {
         whileInView="show"
         viewport={{ once: false, margin: "-100px" }}
       >
-        {/* Section Label */}
         <p className="text-center text-xs font-semibold tracking-[0.25em] uppercase text-[var(--primary)] mb-3">
           What We Do
         </p>
 
-        {/* Section Title */}
         <h2 className="text-3xl sm:text-4xl font-semibold mb-14 text-center leading-tight">
           Services that{" "}
           <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-transparent bg-clip-text">
@@ -113,7 +111,6 @@ export default function Services() {
           </span>
         </h2>
 
-        {/* Cards Grid */}
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {services.map((service, i) => (
             <motion.div
@@ -122,9 +119,8 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               viewport={{ once: false }}
-              className="relative rounded-2xl trace-card-glow"
+              className="relative rounded-2xl overflow-hidden"
             >
-              {/* Glowing Trace Border */}
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none z-20"
                 viewBox="0 0 100 100"
@@ -142,22 +138,14 @@ export default function Services() {
                 />
               </svg>
 
-              {/* Card Content */}
               <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur p-8 h-full flex flex-col">
-                {/* Icon */}
                 <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/15 border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] mb-6">
                   {service.icon}
                 </div>
-
-                {/* Title */}
                 <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-
-                {/* Description */}
                 <p className="text-sm text-[var(--muted)] leading-relaxed mb-6">
                   {service.description}
                 </p>
-
-                {/* Bullet Points */}
                 <ul className="mt-auto space-y-3">
                   {service.bullets.map((bullet) => (
                     <li
