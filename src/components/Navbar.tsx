@@ -14,26 +14,52 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
+    // Scroll detection for glass effect
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-      // Detect active section
-      const sections = ["services", "projects", "contact"];
-      let current = "";
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom > 150) {
+    // IntersectionObserver for active section — fires when section enters viewport
+    const sectionIds = ["services", "projects", "contact"];
+    const visibleSections = new Set<string>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visibleSections.add(entry.target.id);
+          } else {
+            visibleSections.delete(entry.target.id);
+          }
+        });
+
+        // Pick the last visible section in page order
+        let current = "";
+        for (const id of sectionIds) {
+          if (visibleSections.has(id)) {
             current = id;
           }
         }
+        setActiveSection(current);
+      },
+      {
+        // Trigger when even 5% of the section is visible
+        threshold: 0.05,
+        // Only shrink detection zone by 15% from bottom — generous enough for last sections
+        rootMargin: "0px 0px -15% 0px",
       }
-      setActiveSection(current);
-    };
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
