@@ -11,9 +11,21 @@ export default function Home() {
     <main className="bg-[var(--bg)] text-[var(--text)]">
       <Navbar />
       <Hero />
+
+      <div className="section-divider" />
+
       <Services />
+
+      <div className="section-divider" />
+
       <Projects />
+
+      <div className="section-divider" />
+
       <About />
+
+      <div className="section-divider" />
+
       <Contact />
       <Footer />
     </main>

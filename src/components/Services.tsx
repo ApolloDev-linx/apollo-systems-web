@@ -122,7 +122,7 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               viewport={{ once: false }}
-              className="relative rounded-2xl overflow-hidden"
+              className="relative rounded-2xl trace-card-glow"
             >
               {/* Glowing Trace Border */}
               <svg

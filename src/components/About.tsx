@@ -79,7 +79,6 @@ export default function About() {
               viewport={{ once: false }}
               className="flex items-start gap-4"
             >
-              {/* Checkmark Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -108,7 +107,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
           viewport={{ once: false }}
-          className="relative rounded-2xl overflow-hidden"
+          className="relative rounded-2xl trace-card-glow"
         >
           {/* Trace Border */}
           <svg
