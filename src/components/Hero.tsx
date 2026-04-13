@@ -18,17 +18,32 @@ const item = {
 
 export default function Hero() {
   return (
-    <section className="relative text-center py-36 px-6 grid-bg overflow-hidden">
+    <section className="relative text-center py-36 px-6 overflow-hidden">
 
-      {/* Animated Grid Wave */}
+      {/* Grid background that fades out at edges */}
+      <div
+        className="absolute inset-0 pointer-events-none grid-bg"
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 15%, black 60%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 15%, black 60%, transparent 100%)",
+        }}
+      />
+
+      {/* Animated Grid Wave — also faded */}
       <motion.div
-        className="absolute inset-0 pointer-events-none opacity-50"
+        className="absolute inset-0 pointer-events-none opacity-60"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-            linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+            linear-gradient(to right, rgba(255,255,255,0.12) 1px, transparent 1px)
           `,
           backgroundSize: "80px 80px",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 20%, black 55%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 20%, black 55%, transparent 100%)",
         }}
         animate={{
           backgroundPositionX: ["0px", "200px", "0px"],
@@ -54,10 +69,28 @@ export default function Hero() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-20 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-[var(--primary)] opacity-25 blur-[150px] rounded-full"
+        className="absolute top-20 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-[var(--primary)] opacity-30 blur-[160px] rounded-full"
       />
 
-      {/*  Content Layer */}
+      {/* Bottom fade overlay — dissolves into page bg */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, var(--bg) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Top subtle fade (so navbar transition is smooth too) */}
+      <div
+        className="absolute top-0 left-0 right-0 h-20 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, var(--bg) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Content Layer */}
       <motion.div
         variants={container}
         initial="hidden"
