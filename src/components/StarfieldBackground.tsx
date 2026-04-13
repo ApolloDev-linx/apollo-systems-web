@@ -15,7 +15,6 @@ interface Particle {
   pulseOffset: number;
 }
 
-// Paint-splatter cluster helper
 function spawnCluster(
   cx: number,
   cy: number,
@@ -27,7 +26,6 @@ function spawnCluster(
 ): Particle[] {
   const particles: Particle[] = [];
   for (let i = 0; i < count; i++) {
-    // Gaussian-ish distribution around center
     const angle = Math.random() * Math.PI * 2;
     const dist = Math.random() * spread + Math.random() * spread * 0.5;
     const x = cx + Math.cos(angle) * dist;
@@ -64,14 +62,13 @@ export default function StarfieldBackground() {
     let animationId: number;
     let particles: Particle[] = [];
 
+    // Vanta black palette — only white and your blue
     const palette = [
-      "138,180,248", // soft blue
-      "56,189,248",  // cyan (--accent)
-      "14,165,233",  // sky blue (--primary)
-      "168,130,255", // lavender purple
-      "255,255,255", // white
-      "100,200,255", // ice blue
-      "200,160,255", // light violet
+      "255,255,255",  // white
+      "255,255,255",  // white (weighted heavier)
+      "255,255,255",  // white (weighted heavier)
+      "14,165,233",   // --primary blue
+      "56,189,248",   // --accent blue
     ];
 
     function resize() {
@@ -89,28 +86,26 @@ export default function StarfieldBackground() {
       const w = window.innerWidth;
       const h = document.documentElement.scrollHeight;
 
-      // Layer 1: Scattered distant stars (tiny, mostly white, subtle drift)
+      // Layer 1: Distant white stars — tiny, faint, barely moving
       const starCount = Math.floor((w * h) / 2800);
       for (let i = 0; i < starCount; i++) {
-        const size = Math.random() * 1.2 + 0.2;
-        const baseAlpha = Math.random() * 0.5 + 0.1;
+        const size = Math.random() * 1.1 + 0.2;
+        const baseAlpha = Math.random() * 0.45 + 0.08;
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
           size,
           baseAlpha,
           alpha: baseAlpha,
-          color: Math.random() > 0.3
-            ? "255,255,255"
-            : palette[Math.floor(Math.random() * palette.length)],
-          vx: (Math.random() - 0.5) * 0.05,
-          vy: (Math.random() - 0.5) * 0.05,
-          pulseSpeed: Math.random() * 0.006 + 0.001,
+          color: Math.random() > 0.15 ? "255,255,255" : "14,165,233",
+          vx: (Math.random() - 0.5) * 0.04,
+          vy: (Math.random() - 0.5) * 0.04,
+          pulseSpeed: Math.random() * 0.005 + 0.001,
           pulseOffset: Math.random() * Math.PI * 2,
         });
       }
 
-      // Layer 2: Paint splatter clusters — random bursts of colored particles
+      // Layer 2: Splatter clusters — white-dominant with blue accents
       const clusterCount = Math.floor((w * h) / 180000) + 4;
       for (let i = 0; i < clusterCount; i++) {
         const cx = Math.random() * w;
@@ -120,17 +115,22 @@ export default function StarfieldBackground() {
         particles.push(...spawnCluster(cx, cy, count, spread, w, h, palette));
       }
 
-      // Layer 3: A few bigger "bright" splatter dots
+      // Layer 3: Bright accent dots — mostly blue with a few white
       const brightCount = Math.floor((w * h) / 120000) + 3;
       for (let i = 0; i < brightCount; i++) {
         const size = Math.random() * 3 + 1.5;
+        const isBlue = Math.random() > 0.35;
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
           size,
           baseAlpha: Math.random() * 0.4 + 0.5,
           alpha: 0.7,
-          color: palette[Math.floor(Math.random() * (palette.length - 1))], // skip pure white
+          color: isBlue
+            ? Math.random() > 0.5
+              ? "14,165,233"
+              : "56,189,248"
+            : "255,255,255",
           vx: (Math.random() - 0.5) * 0.08,
           vy: (Math.random() - 0.5) * 0.08,
           pulseSpeed: Math.random() * 0.01 + 0.004,
@@ -192,7 +192,6 @@ export default function StarfieldBackground() {
     resize();
     draw();
 
-    // Debounced resize
     let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(resizeTimer);
@@ -201,7 +200,6 @@ export default function StarfieldBackground() {
 
     window.addEventListener("resize", handleResize);
 
-    // Watch for content height changes (route transitions, dynamic content, etc.)
     const observer = new ResizeObserver(() => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(resize, 300);
