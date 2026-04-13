@@ -121,7 +121,7 @@ export default function About() {
             />
           </svg>
 
-          <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur p-8">
+          <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur p-8">
             <span className="text-3xl sm:text-4xl font-bold text-[var(--primary)]">
               10+
             </span>

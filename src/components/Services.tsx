@@ -138,7 +138,7 @@ export default function Services() {
                 />
               </svg>
 
-              <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur p-8 h-full flex flex-col">
+              <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur p-8 h-full flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/15 border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] mb-6">
                   {service.icon}
                 </div>

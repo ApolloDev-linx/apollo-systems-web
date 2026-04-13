@@ -101,14 +101,16 @@ html {
 }
 
 
-/* ─── Trace Path — Mobile Fix ───
-   Mobile GPUs choke on stacked SVG drop-shadows.
-   Single lightweight filter + slightly brighter stroke to compensate. */
+/* ─── Trace Path — Mobile ───
+   2 filters instead of 3 — lighter on GPU but still visible glow.
+   Brighter stroke to compensate for fewer shadow layers. */
 @media (max-width: 768px) {
   .trace-path {
     stroke-width: 1.6;
-    stroke: rgba(125, 211, 252, 0.9);
-    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.6));
+    stroke: rgba(200, 230, 255, 0.95);
+    filter:
+      drop-shadow(0 0 4px rgba(125, 211, 252, 0.7))
+      drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
   }
 }
 

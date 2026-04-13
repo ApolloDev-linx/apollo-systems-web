@@ -77,7 +77,7 @@ export default function Projects() {
                 />
               </svg>
 
-              <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur p-8 h-full flex flex-col">
+              <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur p-8 h-full flex flex-col">
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="text-xl font-semibold group-hover:text-[var(--primary)] transition">
                     {project.name}
