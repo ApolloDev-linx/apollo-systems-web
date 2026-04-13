@@ -2,19 +2,27 @@
 
 import { motion, type Variants } from "framer-motion";
 
-const sectionVariant: Variants = {
-  hidden: { opacity: 0, y: 80 },
+const containerVariant: Variants = {
+  hidden: {},
   show: {
-    opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.8,
-      ease: "easeOut",
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
     },
   },
 };
 
-const bullets = [
+const blurUp: Variants = {
+  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+const checkItems = [
   "No bloated agencies — you work directly with the person building your site",
   "Obsessed with speed, clean code, and user experience",
   "Every site is custom — zero templates, zero cookie-cutter layouts",
@@ -23,29 +31,37 @@ const bullets = [
 
 export default function About() {
   return (
-    <section className="py-24 px-6 max-w-3xl mx-auto">
+    <section className="relative py-24 px-6 max-w-3xl mx-auto overflow-hidden">
+      {/* Floating accent orb */}
       <motion.div
-        variants={sectionVariant}
+        animate={{
+          y: [0, -20, 0],
+          x: [0, 15, -15, 0],
+          opacity: [0.15, 0.25, 0.15],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-0 right-0 w-48 h-48 bg-[var(--accent)] rounded-full blur-[100px] pointer-events-none"
+      />
+
+      <motion.div
+        variants={containerVariant}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: false, margin: "-100px" }}
+        viewport={{ once: false, margin: "-80px" }}
+        className="relative z-10"
       >
+        {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: false }}
-          className="text-xs font-semibold tracking-[0.25em] uppercase text-[var(--primary)] mb-3"
+          variants={blurUp}
+          className="text-[var(--primary)] text-sm font-semibold tracking-[0.2em] uppercase mb-4"
         >
           Why Apollo
         </motion.p>
 
+        {/* Title */}
         <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: false }}
-          className="text-3xl sm:text-4xl font-bold mb-6 leading-tight"
+          variants={blurUp}
+          className="text-3xl sm:text-4xl font-bold mb-6"
         >
           Built different.{" "}
           <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-transparent bg-clip-text">
@@ -53,57 +69,51 @@ export default function About() {
           </span>
         </motion.h2>
 
+        {/* Paragraph */}
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.6 }}
-          viewport={{ once: false }}
-          className="text-[var(--muted)] leading-relaxed text-base sm:text-lg mb-10"
+          variants={blurUp}
+          className="text-[var(--muted)] leading-relaxed mb-10"
         >
-          I&apos;m not a massive agency. I&apos;m a developer who builds high-performance
-          websites for businesses that want real results — not a logo carousel and
-          a contact form.
+          I&apos;m not a massive agency. I&apos;m a developer who builds
+          high-performance websites for businesses that want real results — not a
+          logo carousel and a contact form.
         </motion.p>
 
+        {/* Checkmark List */}
         <div className="space-y-5 mb-12">
-          {bullets.map((bullet, i) => (
+          {checkItems.map((item, i) => (
             <motion.div
-              key={bullet}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-              viewport={{ once: false }}
-              className="flex items-start gap-4"
+              key={i}
+              variants={blurUp}
+              className="flex items-start gap-3"
             >
+              {/* Cyan check circle icon */}
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
+                className="w-5 h-5 mt-0.5 flex-shrink-0 text-[var(--primary)]"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-[var(--primary)] shrink-0 mt-0.5"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
               >
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
-              <span className="text-[var(--muted)] text-sm sm:text-base leading-relaxed">
-                {bullet}
+              <span className="text-[var(--muted)] text-sm leading-relaxed">
+                {item}
               </span>
             </motion.div>
           ))}
         </div>
 
+        {/* Stats Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          viewport={{ once: false }}
+          variants={blurUp}
           className="relative rounded-2xl overflow-hidden"
         >
+          {/* Trace glow border */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none z-20"
             viewBox="0 0 100 100"
@@ -114,15 +124,15 @@ export default function About() {
               y="1.5"
               width="97"
               height="97"
-              rx="10"
-              ry="10"
+              rx="8"
+              ry="8"
               pathLength="100"
               className="trace-path"
             />
           </svg>
 
-          <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur p-8">
-            <span className="text-3xl sm:text-4xl font-bold text-[var(--primary)]">
+          <div className="relative p-8 rounded-2xl bg-[var(--bg)] backdrop-blur-md">
+            <span className="text-3xl font-bold text-[var(--primary)]">
               10+
             </span>
             <p className="text-[var(--muted)] text-sm mt-1">
