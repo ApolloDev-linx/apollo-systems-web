@@ -5,29 +5,24 @@ import Projects from "../src/components/Projects";
 import About from "../src/components/About";
 import Contact from "../src/components/Contact";
 import Footer from "../src/components/Footer";
+import StarfieldBackground from "../src/components/StarfieldBackground";
 
 export default function Home() {
   return (
-    <main className="bg-[var(--bg)] text-[var(--text)]">
-      <Navbar />
-      <Hero />
+    <main className="relative bg-[var(--bg)] text-[var(--text)]">
+      {/* Animated starfield canvas — sits behind everything */}
+      <StarfieldBackground />
 
-      <div className="section-divider" />
-
-      <Services />
-
-      <div className="section-divider" />
-
-      <Projects />
-
-      <div className="section-divider" />
-
-      <About />
-
-      <div className="section-divider" />
-
-      <Contact />
-      <Footer />
+      {/* All content on top */}
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <Services />
+        <Projects />
+        <About />
+        <Contact />
+        <Footer />
+      </div>
     </main>
   );
 }
