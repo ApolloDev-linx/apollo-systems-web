@@ -33,11 +33,11 @@ export default function Hero() {
 
       {/* Animated Grid Wave — also faded */}
       <motion.div
-        className="absolute inset-0 pointer-events-none opacity-60"
+        className="absolute inset-0 pointer-events-none opacity-55"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
-            linear-gradient(to right, rgba(255,255,255,0.12) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+            linear-gradient(to right, rgba(255,255,255,0.10) 1px, transparent 1px)
           `,
           backgroundSize: "80px 80px",
           maskImage:
@@ -69,7 +69,7 @@ export default function Hero() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-20 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-[var(--primary)] opacity-30 blur-[160px] rounded-full"
+        className="absolute top-20 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-[var(--primary)] opacity-[0.26] blur-[168px] rounded-full"
       />
 
       {/* Bottom fade overlay — dissolves into page bg */}
